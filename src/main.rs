@@ -25,9 +25,7 @@ fn read_to_end<P: AsRef<Path>>(path: P) -> io::Result<Vec<u8>> {
 /// Resolves a function export's index by name. Can be trivially adjusted for
 /// all types of exports.
 fn func_export_index_by_name(exports: &ExportSection, field_str: &str) -> Option<u32> {
-    println!("1");
     if let Some(entry) = exports.entries().iter().find(|e| e.field() == field_str) {
-        println!("2");
         match entry.internal() {
             Internal::Function(index) => Some(*index),
             _ => None,
@@ -39,7 +37,6 @@ fn func_export_index_by_name(exports: &ExportSection, field_str: &str) -> Option
 
 fn get_entrypoint_index(data: &[u8]) -> Result<u32, String> {
     if let Ok(module) = deserialize_buffer::<Module>(&data) {
-        println!("baz bat");
         //if let FunctionNameSection(fns) = module.names_section().unwrap() {
         Ok(func_export_index_by_name(module.export_section().unwrap(), "main").unwrap())
     } else {
@@ -48,10 +45,8 @@ fn get_entrypoint_index(data: &[u8]) -> Result<u32, String> {
 }
 
 fn maybe_main() -> Result<(), String> {
-    println!("foo");
     let data = read_to_end("test.wasm").map_err(|e| e.to_string())?;
-    println!("bar");
-    let entrypoint = 3;//get_entrypoint_index(&data).unwrap();
+    let entrypoint = get_entrypoint_index(&data).unwrap();
     println!("entrypoint is {}", entrypoint);
     
 
