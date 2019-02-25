@@ -1,0 +1,3 @@
+[submodule "lightbeam"]
+	path = lightbeam
+	url = https://github.com/CraneStation/lightbeam

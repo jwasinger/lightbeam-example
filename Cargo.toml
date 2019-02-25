@@ -1,0 +1,9 @@
+[package]
+name = "lightbeam-example"
+version = "0.1.0"
+authors = ["Jared Wasinger <j-wasinger@hotmail.com>"]
+edition = "2018"
+
+[dependencies]
+lightbeam = { path = "lightbeam" }
+parity-wasm = "0.35.2"
